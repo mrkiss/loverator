@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post" >
+{% csrf_token%}
+
+<h1>{{msg }}</h1>
+<h2>나는 {{user.person.number}}</h2>
+<br/>
+
+<h2>누구에게??</h2>
+<select name="person">
+    {% for p in  persons %}
+        {% ifnotequal  p.user user  %} 
+            <option value="{{p.number}}" {% ifequal p.number recent_number %}selected{% endifequal %}>{{p.number}}</option>
+        {% endifnotequal %}
+    {% endfor %}
+</select>
+<input type="submit" value="찔러보기" style="background:url(/static/button.jpg) no-repeat; border:none;background-size:235px 101px">
+
+</form>
+
+<br/>
+<a href="/logout/">logout</a>
+{% endblock  %}
